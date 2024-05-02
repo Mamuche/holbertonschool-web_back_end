@@ -34,8 +34,4 @@ class Server:
         assert isinstance(page_size, int) and page_size > 0
         start_idx, end_idx = index_range(page, page_size)
 
-        dataset = self.dataset()
-        if start_idx >= len(dataset):
-            return []
-
         return self.dataset()[start_idx:end_idx]
