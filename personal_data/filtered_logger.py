@@ -12,3 +12,4 @@ def filter_datum(fields, redaction, message, separator):
         msg = f"{field}=[^{separator}]+"
         message = re.sub(msg, f"{field}={redaction}", message)
     return message
+
