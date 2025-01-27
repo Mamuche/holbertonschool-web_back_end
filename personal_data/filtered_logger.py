@@ -7,7 +7,12 @@ import re
 from typing import List
 
 
-def filter_datum(fields: List[str], redaction: str, message: str, separator: str) -> str:
+def filter_datum(
+    fields: List[str],
+    redaction: str,
+    message: str,
+    separator: str
+) -> str:
     """returns the log message obfuscated"""
     for field in fields:
         msg = f"{field}=[^{separator}]+"
