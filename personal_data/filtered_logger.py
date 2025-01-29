@@ -43,7 +43,7 @@ def filter_datum(
 ) -> str:
     """returns the log message obfuscated"""
     for field in fields:
-        msg = f"{field}=[^{separator}]+"
+        msg = rf"{field}=[^;]+"
         message = re.sub(msg, f"{field}={redaction}", message)
     return message
 
@@ -56,7 +56,7 @@ def get_logger() -> logging.Logger:
     stream_handler = logging.StreamHandler()
     stream_handler.setFormatter(RedactingFormatter(PII_FIELDS))
     logger.addHandler(stream_handler)
-    return logging
+    return logger
 
 
 def get_db() -> mysql.connector.connection.MySQLConnection:
@@ -97,3 +97,7 @@ def main():
         logger.info(message)
     cursor.close()
     db.close()
+
+
+if __name__ == "__main__":
+    main()
