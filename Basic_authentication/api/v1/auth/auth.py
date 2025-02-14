@@ -9,7 +9,14 @@ class Auth:
 
     def require_auth(self, path: str, excluded_paths: List[str]) -> bool:
         """
-        returns False - path and excluded_paths will be used later
+        returns True if the path is not in the list of strings excluded_paths:
+        Returns True if path is None
+        Returns True if excluded_paths is None or empty
+        Returns False if path is in excluded_paths
+        You can assume excluded_paths contains string path always ending by a /
+        This method must be slash tolerant:
+        path=/api/v1/status and path=/api/v1/status/
+        must be returned False if excluded_paths contains /api/v1/status/
         """
         if path is None:
             return True
@@ -27,9 +34,17 @@ class Auth:
 
     def authorization_header(self, request=None) -> str:
         """
-        returns None - request will be the Flask request object
+        If request is None, returns None
+        If request doesn't contain the header key Authorization, returns None
+        Otherwise, return the value of the header request Authorization
         """
-        return None
+        if request is None:
+            return None
+
+        if "Authorization" not in request.headers:
+            return None
+
+        return request.headers.get("Authorization")
 
     User = TypeVar("User")
 
