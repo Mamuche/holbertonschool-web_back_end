@@ -42,17 +42,39 @@ class DB:
 
     def find_user_by(self, **kwargs) -> User:
         """
-        takes in arbitrary keyword arguments and returns
-        the first row found in the users table
+        Finds the first user that matches the given filters.
         """
         session = self._session
+
+        valid_columns = User.__table__.columns.keys()
+
+        for key in kwargs.keys():
+            if key not in valid_columns:
+                raise InvalidRequestError(f"Invalid column name: {key}")
+
+        user = session.query(User).filter_by(**kwargs).first()
+
+        if user is None:
+            raise NoResultFound("No user found matching the criteria.")
+
+        return user
+
+    def update_user(self, user_id: int, **kwargs) -> None:
+        """
+        Updates the attributes of a user identified by user_id.
+        """
+        session = self._session
+
         try:
-            return session.query(User).filter_by(**kwargs).one()
+            user = self.find_user_by(id=user_id)
         except NoResultFound:
-            raise NoResultFound(
-                "No user found matching the provided criteria."
-                )
-        except AttributeError:
-            raise InvalidRequestError(
-                "Invalid request: Check the arguments passed to the query."
-                )
+            raise NoResultFound("No user found with the given ID.")
+
+        valid_columns = User.__table__.columns.keys()
+
+        for key, value in kwargs.items():
+            if key not in valid_columns:
+                raise ValueError(f"Invalid attribute: {key}")
+            setattr(user, key, value)
+
+        session.commit()
