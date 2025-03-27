@@ -65,7 +65,9 @@ class TestMemoize(unittest.TestCase):
             def a_property(self):
                 return self.a_method()
         # patch spécifique à la méthode de la classe (local)
-        with patch.object(TestClass, "a_method", return_value=42) as mock_method:
+        with patch.object(
+            TestClass, "a_method", return_value=42
+        ) as mock_method:
             obj = TestClass()
 
             # premier appel, doit appeler a_method
