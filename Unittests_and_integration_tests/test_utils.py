@@ -55,7 +55,7 @@ class TestGetJson(TestCase):
 
 class TestMemoize(unittest.TestCase):
     """Tests for memoized function"""
-def test_memoize(self):
+    def test_memoize(self):
         """Test that memoize calls the method only once"""
         class TestClass:
             def a_method(self):
