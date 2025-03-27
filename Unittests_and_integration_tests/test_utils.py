@@ -63,6 +63,7 @@ class TestMemoize(unittest.TestCase):
 
             @memoize
             def a_property(self):
+                """A memoized property"""
                 return self.a_method()
         # patch spécifique à la méthode de la classe (local)
         with patch.object(
