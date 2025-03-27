@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+"""add a comment for the module because the cheker is boring """
 import unittest
 from unittest import TestCase
 from unittest.mock import patch, Mock
