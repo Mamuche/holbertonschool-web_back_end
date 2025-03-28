@@ -3,6 +3,7 @@
 
 
 from flask import Flask, render_template, request
+# _ is used to mark strings for translation
 from flask_babel import Babel, _
 
 
