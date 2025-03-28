@@ -3,7 +3,8 @@
 
 
 from flask import Flask, render_template, request
-from flask_babel import Babel, _ # _ is used for gettext translation
+from flask_babel import Babel, _
+"""_ is a function used for message translation (gettext)"""
 
 
 class Config:
