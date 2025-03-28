@@ -3,8 +3,7 @@
 
 
 from flask import Flask, render_template, request
-# _ is used to mark strings for translation
-from flask_babel import Babel, _
+from flask_babel import Babel, _ # add comment
 
 
 class Config:
@@ -15,6 +14,7 @@ class Config:
 
 
 app = Flask(__name__)
+babel = Babel()
 app.config.from_object(Config)
 
 
@@ -34,5 +34,4 @@ def index():
     return render_template('3-index.html')
 
 
-babel = Babel()
-babel.init_app(app, locale_selector=get_locale, timezone_selector=get_timezone)
+# babel.init_app(app, locale_selector=get_locale, timezone_selector=get_timezone)
