@@ -14,7 +14,6 @@ class Config:
 
 
 app = Flask(__name__)
-babel = Babel()
 app.config.from_object(Config)
 
 
@@ -34,4 +33,5 @@ def index():
     return render_template('3-index.html')
 
 
-# babel.init_app(app, locale_selector=get_locale, timezone_selector=get_timezone)
+babel = Babel()
+babel.init_app(app, locale_selector=get_locale, timezone_selector=get_timezone)
