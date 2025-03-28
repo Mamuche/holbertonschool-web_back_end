@@ -3,9 +3,8 @@
 
 
 from flask import Flask, render_template, request
+# _ is a function used for message translation (gettext)
 from flask_babel import Babel, _
-"""_ is a function used for message translation (gettext)"""
-
 
 class Config:
     """ config class """
