@@ -46,6 +46,22 @@ def get_locale():
 
 def get_timezone():
     """ get the timezone from the user """
+    # Vérifier dans l'URL
+    tz_param = request.args.get('timezone')
+    try:
+        if tz_param:
+            return pytz.timezone(tz_param).zone
+    except UnknownTimeZoneError:
+        pass
+
+    # Vérifier si l'utilisateur est connecté
+    user = getattr(g, 'user', None)
+    try:
+        if user and user.get('timezone'):
+            return pytz.timezone(user['timezone']).zone
+    except UnknownTimeZoneError:
+        pass
+
     return app.config.get('BABEL_DEFAULT_TIMEZONE', 'UTC')
 
 
@@ -67,7 +83,7 @@ def before_request():
 @app.route('/')
 def index():
     """ route for index"""
-    return render_template('6-index.html')
+    return render_template('7-index.html')
 
 
 babel = Babel()
